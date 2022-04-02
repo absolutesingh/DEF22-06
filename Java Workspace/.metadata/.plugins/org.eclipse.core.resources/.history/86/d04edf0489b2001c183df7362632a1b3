@@ -1,0 +1,16 @@
+package coreJava;
+
+public class ControlFlow {
+
+	public static void main(String[] args) {
+		int num = 50;
+		if(num>50)
+		{
+			System.out.println("Passed");
+		}
+		else {
+			System.out.println("Failed");
+		}
+	}
+
+}
