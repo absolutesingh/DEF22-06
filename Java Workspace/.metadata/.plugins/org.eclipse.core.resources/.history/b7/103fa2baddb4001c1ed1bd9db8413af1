@@ -1,0 +1,11 @@
+package arrays;
+
+public class ArrayStudy {
+
+	public static void main(String[] args) {
+		int size = 6;
+		int arr[] = new int[size]; //Array Creation Expression
+		
+	}
+
+}

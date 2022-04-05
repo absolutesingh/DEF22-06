@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;arr&apos; in &apos;arrays.JaggedArrays.main(...)&apos; to &apos;oldArr&apos;&#x0D;&#x0A;- Original project: &apos;ChitkaraDSA&apos;&#x0D;&#x0A;- Original element: &apos;arrays.JaggedArrays.main(String[]).arr&apos;&#x0D;&#x0A;- Renamed element: &apos;arr&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;arr&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;arrays{JaggedArrays.java[JaggedArrays~main~\[QString;@arr!95!121!99!101!\[\[I!0!false" name="oldArr" references="true" stamp="1649165275523" version="1.0"/>
+</session>
