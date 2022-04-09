@@ -1,0 +1,12 @@
+package coreJava;
+
+import java.util.Scanner;
+
+public class ScannerStudy {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner();
+		System.out.println();
+	}
+
+}
