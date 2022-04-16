@@ -33,40 +33,6 @@ public class QuickSort {
 		arr[index2] = temp;
 	}
 
-	static void merge(int arr[], int left[], int right[]) {
-		int nL = left.length;
-		int nR = right.length;
-
-		int i = 0; // pointer to left array
-		int j = 0; // pointer to right array
-		int k = 0; // pointer to main(arr) array
-
-		while (i < nL && j < nR) {
-			if (left[i] <= right[j]) // element in left array is smaller
-			{
-				arr[k] = left[i];
-				i++;
-			} else // element in right array is smaller
-			{
-				arr[k] = right[j];
-				j++;
-			}
-			k++; // yeh to krna hi hai, chahe left se uthao chaahe right se
-		}
-
-		while (i < nL) {
-			arr[k] = left[i];
-			i++;
-			k++;
-		}
-
-		while (j < nR) {
-			arr[k] = right[j];
-			j++;
-			k++;
-		}
-	}
-
 	static void printArray(int arr[], boolean isSorted) {
 		if (isSorted) {
 			System.out.println("****Sorted Array****");

@@ -1,0 +1,10 @@
+package arrays;
+
+public class TwoPointerConcept {
+
+	public static void main(String[] args) {
+		int arr[] = {10,20,35,50,75,80};
+		
+	}
+
+}

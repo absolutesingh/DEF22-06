@@ -1,0 +1,14 @@
+package arrays;
+
+import java.util.Scanner;
+
+public class ArtisticPattern {
+
+	public static void main(String[] args) {
+		System.out.print("Please enter the size of art you want: ");
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		
+	}
+
+}
