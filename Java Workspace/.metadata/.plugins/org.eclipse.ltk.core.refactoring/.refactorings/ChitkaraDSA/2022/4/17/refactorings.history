@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;strings.StringStudy.findAllOccurrences(...)&apos; to &apos;printAllOccurrences&apos;&#x0D;&#x0A;- Original project: &apos;ChitkaraDSA&apos;&#x0D;&#x0A;- Original element: &apos;strings.StringStudy.findAllOccurrences(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;strings.StringStudy.printAllOccurrences(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;findAllOccurrences&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;strings{StringStudy.java[StringStudy~findAllOccurrences~QString;~C" name="printAllOccurrences" references="true" stamp="1650372971261" version="1.0"/>
+</session>

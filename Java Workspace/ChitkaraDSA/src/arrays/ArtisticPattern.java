@@ -116,6 +116,7 @@ public class ArtisticPattern {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		printArtisticPattern(n);
+		sc.close();
 	}
 
 }
