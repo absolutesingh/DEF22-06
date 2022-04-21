@@ -1,0 +1,17 @@
+package strings;
+
+public class Anagrams {
+
+	static boolean isAnagram(String s1, String s2)
+	{
+		
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(isAnagram("CAT", "TAC"));
+		System.out.println(isAnagram("CAT", "TAG"));
+		System.out.println(isAnagram("CAT", "TACC"));
+		System.out.println(isAnagram("INTEGRAL", "Triangle"));
+	}
+
+}

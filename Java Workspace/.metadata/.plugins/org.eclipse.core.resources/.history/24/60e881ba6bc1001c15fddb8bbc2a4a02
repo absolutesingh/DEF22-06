@@ -1,0 +1,14 @@
+package strings;
+
+public class CheckPalindrome {
+
+	static boolean checkPalindrome(String s)
+	{
+		
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+
+}
