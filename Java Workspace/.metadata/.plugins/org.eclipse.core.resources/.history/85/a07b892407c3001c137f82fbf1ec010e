@@ -1,6 +1,6 @@
-package arrays;
+package strings;
 
-public class ArtisticPattern {
+public class AllAnagramsInAString {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
