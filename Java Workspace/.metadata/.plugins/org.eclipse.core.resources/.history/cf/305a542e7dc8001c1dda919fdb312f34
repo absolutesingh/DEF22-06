@@ -1,6 +1,6 @@
-package strings;
+package bitwise;
 
-public class MinimumWindowSubstring {
+public class CountBits {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

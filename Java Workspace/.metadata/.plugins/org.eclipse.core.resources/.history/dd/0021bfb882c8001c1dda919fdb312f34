@@ -1,6 +1,6 @@
-package strings;
+package linkedList;
 
-public class AllAnagramsInAString {
+public class MyLL {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
