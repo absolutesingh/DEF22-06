@@ -65,75 +65,58 @@ public class MyLL {
 
 		return slow.data;
 	}
-
+	
 //	https://practice.geeksforgeeks.org/problems/merge-two-sorted-linked-lists/1
 	static Node sortedMerge(Node head1, Node head2) {
-		// This is a "method-only" submission.
-		// You only need to complete this method
-		if (head1 == null)
-			return head2;
-		if (head2 == null)
-			return head1;
-
-		Node newHead;
-
-		if (head1.data <= head2.data) {
-			newHead = head1;
-			head1 = head1.next;
-		} else {
-			newHead = head2;
-			head2 = head2.next;
-		}
-
-		Node last = newHead;
-
-		while (true) {
-			if (head1 == null) {
-				last.next = head2;
-				break;
-			}
-			if (head2 == null) {
-				last.next = head1;
-				break;
-			}
-
-			if (head1.data <= head2.data) {
-				last.next = head1;
-				head1 = head1.next;
-			} else {
-				last.next = head2;
-				head2 = head2.next;
-			}
-
-			last = last.next; // in any case
-
-		}
-
-		return newHead;
-
-	}
-
-//	https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1/
-	Node reverseList(Node head) {
-		if (head == null)
-			return head;
-
-		Node prev = null;
-		Node next = null;
-		Node current = head;
-
-		while (current != null) {
-			next = current.next;
-			current.next = prev;
-			prev = current;
-			current = next;
-		}
-
-		return prev;
-
-		// head = prev;
-		// return head;
-	}
+	     // This is a "method-only" submission. 
+	     // You only need to complete this method
+	     if(head1 == null) return head2;
+	     if(head2 == null) return head1;
+	     
+	     Node newHead;
+	     
+	     if(head1.data<=head2.data)
+	     {
+	         newHead = head1;
+	         head1 = head1.next;
+	     }
+	     else{
+	         newHead = head2;
+	         head2 = head2.next;
+	     }
+	     
+	     Node last = newHead;
+	     
+	     while(true)
+	     {
+	         if(head1==null)
+	         {
+	             last.next = head2;
+	             break;
+	         }
+	         if(head2==null)
+	         {
+	             last.next = head1;
+	             break;
+	         }
+	         
+	         if(head1.data<=head2.data)
+	         {
+	             last.next = head1;
+	             head1 = head1.next;
+	         }
+	         else{
+	             last.next = head2;
+	             head2 = head2.next;
+	         }
+	         
+	         last = last.next; //in any case
+	         
+	     }
+	     
+	     return newHead;
+	     
+	   } 
 
 	public static void main(String[] args) {
 		Node head = new Node(5);

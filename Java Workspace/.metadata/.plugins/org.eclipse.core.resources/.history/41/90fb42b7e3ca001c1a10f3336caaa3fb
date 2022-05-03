@@ -113,28 +113,6 @@ public class MyLL {
 
 	}
 
-//	https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1/
-	Node reverseList(Node head) {
-		if (head == null)
-			return head;
-
-		Node prev = null;
-		Node next = null;
-		Node current = head;
-
-		while (current != null) {
-			next = current.next;
-			current.next = prev;
-			prev = current;
-			current = next;
-		}
-
-		return prev;
-
-		// head = prev;
-		// return head;
-	}
-
 	public static void main(String[] args) {
 		Node head = new Node(5);
 //		System.out.println(head.data);
