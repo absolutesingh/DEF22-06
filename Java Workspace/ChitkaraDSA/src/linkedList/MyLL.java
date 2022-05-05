@@ -135,6 +135,148 @@ public class MyLL {
 		// return head;
 	}
 
+//	https://practice.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1#
+	static int intersectPoint(Node head1, Node head2) {
+		Node temp1 = head1;
+		Node temp2 = head2;
+
+		while (temp1 != null) {
+			while (temp2 != null) {
+				if (temp1 == temp2)
+					return temp1.data;
+
+				temp2 = temp2.next;
+			}
+			// temp2 becomes null
+			temp2 = head2;
+			temp1 = temp1.next;
+		}
+		// temp1 becomes null
+		return -1;
+	}
+
+//	https://practice.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1#
+	int intersectPointOptimized(Node head1, Node head2) {
+		int len1 = 0;
+		int len2 = 0;
+		int diff = 0;
+
+		Node temp1 = head1;
+		Node temp2 = head2;
+
+		while (temp1 != null) {
+			temp1 = temp1.next;
+			len1++;
+		}
+
+		while (temp2 != null) {
+			temp2 = temp2.next;
+			len2++;
+		}
+
+		// we've found the len of both LL's
+
+		if (len1 >= len2) {
+			temp1 = head1; // always naming the longer as 1
+			temp2 = head2; // always naming the shorter as 2
+			diff = len1 - len2;
+		} else {
+			temp1 = head2; // always naming the longer as 1
+			temp2 = head1; // always naming the shorter as 2
+			diff = len2 - len1;
+		}
+
+		// moving the longer one ahead by diff
+		for (int i = 0; i < diff; i++) {
+			temp1 = temp1.next;
+		}
+
+		while (temp1 != null && temp2 != null) {
+			if (temp1 == temp2)
+				return temp1.data;
+
+			temp1 = temp1.next;
+			temp2 = temp2.next;
+		}
+
+		return -1;
+	}
+
+//	https://practice.geeksforgeeks.org/problems/detect-loop-in-linked-list/1#
+	static boolean detectLoop(Node head) {
+		if (head == null)
+			return false;
+
+		Node slow = head;
+		Node fast = head;
+
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+
+			if (slow == fast) // order of this check matters
+				return true;
+		}
+
+		return false;
+	}
+
+	void removeLoopApproach1(Node listNode, Node loopNode) {
+		Node temp = loopNode;
+		while (true) // to move listNode
+		{
+			while (listNode.next != loopNode.next && loopNode.next != temp)// to move loopNode
+			{
+				loopNode = loopNode.next;
+			}
+			// it could have broken due to 2 reason
+			if (listNode.next == loopNode.next) {
+				loopNode.next = null;
+				return;
+			}
+			listNode = listNode.next;
+		}
+	}
+
+//	https://practice.geeksforgeeks.org/problems/remove-loop-in-linked-list/1#
+	public static void removeLoop(Node head) {
+		if (head == null)
+			return;
+
+		Node slow = head;
+		Node fast = head;
+
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+
+			if (slow == fast) // order of this check matters
+				removeLoopUtil(head, fast);
+		}
+
+		return;
+	}
+
+	static void removeLoopUtil(Node head, Node fast) {
+		Node slow = head;
+
+		if (slow == fast) // For circular linked list
+		{
+			while (fast.next != slow) {
+				fast = fast.next;
+			}
+			fast.next = null;
+			return;
+		}
+
+		// For all other cases
+		while (slow.next != fast.next) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+		fast.next = null;
+	}
+
 	public static void main(String[] args) {
 		Node head = new Node(5);
 //		System.out.println(head.data);
