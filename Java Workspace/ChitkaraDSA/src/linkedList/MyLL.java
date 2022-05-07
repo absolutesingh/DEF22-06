@@ -68,8 +68,6 @@ public class MyLL {
 
 //	https://practice.geeksforgeeks.org/problems/merge-two-sorted-linked-lists/1
 	static Node sortedMerge(Node head1, Node head2) {
-		// This is a "method-only" submission.
-		// You only need to complete this method
 		if (head1 == null)
 			return head2;
 		if (head2 == null)
@@ -111,6 +109,23 @@ public class MyLL {
 
 		return newHead;
 
+	}
+
+//	https://practice.geeksforgeeks.org/problems/merge-k-sorted-linked-lists/1/#
+	Node mergeKList(Node[] arr, int K) {
+		int l = 0;
+		int r = K - 1;
+
+		while (r != 0) {
+			arr[l] = sortedMerge(arr[l], arr[r]);
+			l++;
+			r--;
+			if (l >= r) {
+				l = 0;
+			}
+		}
+
+		return arr[0];
 	}
 
 //	https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1/
@@ -221,20 +236,20 @@ public class MyLL {
 		return false;
 	}
 
-	void removeLoopApproach1(Node listNode, Node loopNode) {
+	void removeLoopApproach1(Node Node, Node loopNode) {
 		Node temp = loopNode;
-		while (true) // to move listNode
+		while (true) // to move Node
 		{
-			while (listNode.next != loopNode.next && loopNode.next != temp)// to move loopNode
+			while (Node.next != loopNode.next && loopNode.next != temp)// to move loopNode
 			{
 				loopNode = loopNode.next;
 			}
 			// it could have broken due to 2 reason
-			if (listNode.next == loopNode.next) {
+			if (Node.next == loopNode.next) {
 				loopNode.next = null;
 				return;
 			}
-			listNode = listNode.next;
+			Node = Node.next;
 		}
 	}
 
@@ -275,6 +290,61 @@ public class MyLL {
 			fast = fast.next;
 		}
 		fast.next = null;
+	}
+
+//	https://leetcode.com/problems/add-two-numbers/submissions/
+	Node addTwoNumbers(Node l1, Node l2) {
+
+		Node result = null;
+		Node curr = result;
+		int carry = 0;
+
+		while (!(l1 == null && l2 == null)) {
+			int a = (l1 == null) ? 0 : l1.data;
+			int b = (l2 == null) ? 0 : l2.data;
+			int sum = a + b + carry;
+			carry = sum / 10;
+			if (result == null) {
+				result = new Node(sum % 10);
+				curr = result;
+			} else {
+				curr.next = new Node(sum % 10);
+				curr = curr.next;
+			}
+			if (l1 != null)
+				l1 = l1.next;
+			if (l2 != null)
+				l2 = l2.next;
+		}
+		if (carry == 1) {
+			curr.next = new Node(carry);
+		}
+		return result;
+	}
+
+//	https://practice.geeksforgeeks.org/problems/pairwise-swap-elements-of-a-linked-list-by-swapping-data/1
+	public Node pairwiseSwap(Node head) {
+		if (head == null || head.next == null)
+			return head;
+
+		Node prev = head;
+		Node curr = head.next;
+		Node result = head.next;
+		Node next = null;
+
+		while (true) {
+			next = curr.next;
+			curr.next = prev;
+
+			if (next == null || next.next == null) {
+				prev.next = next;
+				return result;
+			}
+
+			prev.next = next.next;
+			prev = next;
+			curr = prev.next;
+		}
 	}
 
 	public static void main(String[] args) {
