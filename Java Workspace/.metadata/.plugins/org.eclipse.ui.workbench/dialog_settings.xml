@@ -22,4 +22,6 @@
 			<item value="error"/>
 		</list>
 	</section>
+	<section name="NewWizardAction">
+	</section>
 </section>
