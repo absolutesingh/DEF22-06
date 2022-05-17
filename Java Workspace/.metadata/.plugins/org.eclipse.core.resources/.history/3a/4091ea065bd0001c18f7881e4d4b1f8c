@@ -1,6 +1,0 @@
-package stacks;
-import java.util.Stack;
-
-public class ClassStudy {
-	Stack<Integer> stack = new Stack<>();
-}
