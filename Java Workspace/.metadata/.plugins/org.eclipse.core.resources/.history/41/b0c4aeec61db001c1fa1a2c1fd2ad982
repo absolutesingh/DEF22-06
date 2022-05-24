@@ -1,0 +1,80 @@
+package trees;
+
+import java.util.*;
+
+class BSTNode {
+	int data;
+	BSTNode left;
+	BSTNode right;
+
+	BSTNode(int data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+
+}
+
+public class BST {
+
+	BSTNode root; // Root of the Binary Tree
+
+	BST(int rootData) {
+		this.root = new BSTNode(rootData);
+	}
+
+	BSTNode search(BSTNode root, int data) {
+		if (root == null)
+			return null;
+
+		if (root.data == data)
+			return root;
+
+		if (data < root.data) // Search in LST
+		{
+			return search(root.left, data);
+		} else { // Search in RST
+			return search(root.right, data);
+		}
+	}
+	
+	boolean searchItr(BSTNode root, int data)
+	{
+		if(root == null)
+			return false; //empty tree
+		
+		while(root != null)
+		{
+			if(data == root.data)
+				return true; //value has been found
+			else if(data < root.data)
+			{
+				root = root.left;
+			}
+			else {
+				root = root.right;
+			}
+		}
+		//We reach here -> root has become null.
+		return false;
+	}
+
+	public static void main(String[] args) {
+		BST bst = new BST(15);
+		bst.root.left = new BSTNode(10);
+		bst.root.right = new BSTNode(20);
+		bst.root.left.left = new BSTNode(8);
+		bst.root.left.right = new BSTNode(12);
+		bst.root.right.left = new BSTNode(17);
+		bst.root.right.right = new BSTNode(25);
+		// Sample tree has been created
+		
+		System.out.println(bst.search(bst.root, 17));
+		System.out.println(bst.search(bst.root, 19));
+		
+		System.out.println(bst.searchItr(bst.root, 17));
+		System.out.println(bst.searchItr(bst.root, 19));
+
+	}
+
+}

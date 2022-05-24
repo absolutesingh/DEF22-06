@@ -6,12 +6,14 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=".data"/>
+		<item key="selection" value="BSTNode"/>
 		<list key="findhistory">
+			<item value="Node"/>
 			<item value=".val"/>
 			<item value="ListNode"/>
 		</list>
 		<list key="replacehistory">
+			<item value="BSTNode"/>
 			<item value=".data"/>
 			<item value="Node"/>
 		</list>

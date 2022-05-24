@@ -1,0 +1,147 @@
+package trees;
+
+import java.util.*;
+
+class BSTNode {
+	int data;
+	BSTNode left;
+	BSTNode right;
+
+	BSTNode(int data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+
+}
+
+public class BST {
+
+	BSTNode root; // Root of the Binary Tree
+
+	BST(int rootData) {
+		this.root = new BSTNode(rootData);
+	}
+
+//	https://practice.geeksforgeeks.org/problems/sum-of-binary-tree/1/#
+	int treeSum(BSTNode root) {
+		if (root == null)
+			return 0;
+
+		return root.data + treeSum(root.left) + treeSum(root.right);
+	}
+
+	int countBSTNodes(BSTNode root) {
+		if (root == null)
+			return 0;
+
+		return 1 + countBSTNodes(root.left) + countBSTNodes(root.right);
+	}
+
+	int leafBSTNode(BSTNode root) {
+		if (root == null)
+			return 0;
+
+		if (root.left == null && root.right == null) // if it is a leafBSTNode
+		{
+			return 1;
+		}
+
+		return leafBSTNode(root.left) + leafBSTNode(root.right);
+	}
+
+	public int sumOfLeafBSTNodes(BSTNode root) {
+		if (root == null)
+			return 0;
+
+		if (root.left == null && root.right == null) // if it is a leafBSTNode
+		{
+			return root.data;
+		}
+
+		return sumOfLeafBSTNodes(root.left) + sumOfLeafBSTNodes(root.right);
+	}
+
+	// This is where the main processing happens
+	void printAtLevelHelper(BSTNode root, int pendingSteps) {
+		if (root == null)
+			return;
+
+		if (pendingSteps == 0) {
+			System.out.print(root.data + " ");
+		}
+
+		printAtLevelHelper(root.left, pendingSteps - 1);
+		printAtLevelHelper(root.right, pendingSteps - 1);
+	}
+
+	// Creating helper function so that we can leave a line after printing a level.
+	void printAtLevel(BSTNode root, int pendingSteps) {
+		printAtLevelHelper(root, pendingSteps);
+		// All processing is done.
+
+		// Now leave a line as desired.
+		System.out.println();
+	}
+
+	int height(BSTNode root) {
+		if (root == null)
+			return -1;
+
+		return 1 + Math.max(height(root.left), height(root.right));
+	}
+
+	void bfsRecursive(BSTNode root) {
+		int levelCount = height(root) + 1;
+
+		for (int i = 0; i < levelCount; i++) {
+			printAtLevel(root, i); // Print all levels from [0 to height]
+		}
+	}
+
+	void bfsIterative(BSTNode root) {
+		if (root == null)
+			return;
+
+		Queue<BSTNode> q = new LinkedList<>();
+		q.add(root);
+
+		while (!q.isEmpty()) {
+			BSTNode current = q.poll();
+
+			System.out.print(current.data + " ");
+
+			if (current.left != null) {
+				q.add(current.left);
+			}
+			
+			if (current.right != null) {
+				q.add(current.right);
+			}
+		}
+		//When queue becomes empty means the BFS has completed.
+		
+		System.out.println();
+	}
+
+	public static void main(String[] args) {
+		BST bt = new BST(2); // Create a Binary Tree with 2 as the root.
+		bt.root.left = new BSTNode(3);
+		bt.root.right = new BSTNode(5);
+		bt.root.left.right = new BSTNode(9);
+		bt.root.right.left = new BSTNode(7);
+		// Sample tree has been created
+
+		System.out.println(bt.treeSum(bt.root));
+		System.out.println(bt.countBSTNodes(bt.root));
+		System.out.println(bt.leafBSTNode(bt.root));
+		System.out.println(bt.sumOfLeafBSTNodes(bt.root));
+
+		bt.printAtLevel(bt.root, 0);
+		bt.printAtLevel(bt.root, 2);
+
+		bt.bfsRecursive(bt.root);
+		bt.bfsIterative(bt.root);
+	}
+
+}
