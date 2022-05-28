@@ -123,6 +123,29 @@ public class BST {
 		return root;
 	}
 
+//	https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-bst/1/
+	Node lcaBST(Node root, int n1, int n2) {
+		if (root == null) // empty tree
+		{
+			return root;
+		}
+
+		if (n1 < root.data && n2 < root.data) {
+			return lcaBST(root.left, n1, n2);
+		}
+
+		if (n1 > root.data && n2 > root.data) {
+			return lcaBST(root.right, n1, n2);
+		}
+
+//		if root.data == n1
+//		or, root.data == n2
+//		or, one element is to the left and other element is to the right of root
+//		So, in these three scenarios the LCA will be root
+		return root;
+
+	}
+
 	public static void main(String[] args) {
 		BST bst = new BST(15);
 //		bst.root.left = new BSTNode(10);
@@ -158,9 +181,9 @@ public class BST {
 		bst.root = bst.delete(bst.root, 32);
 		System.out.println(bst.getMin(bst.root));
 		System.out.println(bst.getMax(bst.root));
-		
+
 		bst.root = bst.delete(bst.root, 15);
-		
+
 		System.out.println(bst.root.data);
 
 	}

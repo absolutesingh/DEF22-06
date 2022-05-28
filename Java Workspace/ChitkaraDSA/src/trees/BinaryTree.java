@@ -114,15 +114,209 @@ public class BinaryTree {
 			if (current.left != null) {
 				q.add(current.left);
 			}
-			
+
 			if (current.right != null) {
 				q.add(current.right);
 			}
 		}
-		//When queue becomes empty means the BFS has completed.
-		
+		// When queue becomes empty means the BFS has completed.
+
 		System.out.println();
 	}
+
+//	https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1/
+	Node lca(Node root, int n1, int n2) {
+		if (root == null) // empty tree
+		{
+			return root;
+		}
+
+		if (root.data == n1 || root.data == n2) {
+			return root; // element found
+		}
+
+		// Find where are the two nodes
+		Node leftLCA = lca(root.left, n1, n2);
+		Node rightLCA = lca(root.right, n1, n2);
+
+		// If one node lies on left and one node lies on right,
+		// then our current node is the LCA
+
+		if (leftLCA != null && rightLCA != null) {
+			return root;
+		}
+
+		else if (leftLCA == null) // Means both nodes are on right side
+		{
+			return rightLCA;
+		}
+
+		else // (rightLCA == null) //Means both nodes are on left side
+		{
+			return leftLCA;
+		}
+
+	}
+	
+//	--------------LEFT and RIGHT View--------------
+	
+	int levelToBePrinted = 0;
+	
+	void leftViewUtil(Node root, int level)
+	{
+		if(root == null)
+			return;
+		
+		if(level == levelToBePrinted)
+		{
+			System.out.print(root.data + " ");
+			levelToBePrinted++;
+		}
+		
+		leftViewUtil(root.left, level + 1);
+		leftViewUtil(root.right, level + 1);
+	}
+	
+	void leftView(Node root)
+	{
+		leftViewUtil(root, 0);
+		
+		//Preparing for the next time
+		levelToBePrinted = 0;
+		System.out.println();
+	}
+	
+	//Nothing but BFS where we're printing the first level.
+	void leftViewIterative(Node root)
+	{
+		if(root == null)
+			return;
+		
+		Queue<Node> q = new LinkedList<>();
+		q.add(root);
+		
+		while(!q.isEmpty())
+		{
+			//find the number of nodes in current element
+			int n = q.size();
+			
+			for(int i=0;i<n;i++) //process these items
+			{
+				Node temp = q.poll();
+				
+				if(i==0) //if it is the first element of current level
+				{
+					System.out.print(temp.data + " ");
+				}
+				if(temp.left != null)
+				{
+					q.add(temp.left);
+				}
+				
+				if(temp.right != null)
+				{
+					q.add(temp.right);
+				}
+			}
+		}
+		System.out.println();
+	}
+	
+	void rightViewUtil(Node root, int level)
+	{
+		if(root == null)
+			return;
+		
+		if(level == levelToBePrinted)
+		{
+			System.out.print(root.data + " ");
+			levelToBePrinted++;
+		}
+		
+		rightViewUtil(root.right, level + 1);
+		rightViewUtil(root.left, level + 1);
+	}
+	
+	void rightView(Node root)
+	{
+		rightViewUtil(root, 0);
+		
+		//Preparing for the next time
+		levelToBePrinted = 0;
+		System.out.println();
+	}
+	
+//	--------------VERTICAL ORDER--------------
+	
+	int leftHD = 0; //leftmost horizontal distance
+	int rightHD = 0; //rightmost horizontal distance
+	
+	void findHorizontalDistances(Node root, int hd) //hd -> Horizontal Distance
+	{
+		if(root == null)
+			return;
+		
+		if(hd < leftHD)
+		{
+			leftHD = hd;
+		}
+		if(hd > rightHD)
+		{
+			rightHD = hd;
+		}
+		
+		findHorizontalDistances(root.left, hd - 1);
+		findHorizontalDistances(root.right, hd + 1);
+	}
+	
+	void printVerticalLevel(Node root, int level, int hd)
+	{
+		if(root == null)
+			return;
+		
+		if(level == hd)
+		{
+			System.out.print(root.data + " ");
+		}
+		
+		printVerticalLevel(root.left, level, hd - 1);
+		printVerticalLevel(root.right, level, hd + 1);
+	}
+	
+	void verticalOrder(Node root)
+	{
+		findHorizontalDistances(root, 0); //To find the leftMost and rightMost horizontal distance from the root.
+		
+		for(int i = leftHD; i<= rightHD;i++)
+		{
+			printVerticalLevel(root, i, 0);
+			System.out.println();
+		}
+	}
+	
+//	--------------ROOT TO LEAF PATH SUM--------------
+//	https://practice.geeksforgeeks.org/problems/root-to-leaf-path-sum/1/
+	boolean hasPathSum(Node root, int S) {
+        if(root == null)
+            return false;
+            
+        int pendingSum = S - root.data;
+        
+        if(pendingSum == 0 && root.left == null && root.right == null)
+        {
+            return true;
+        }
+        
+        return hasPathSum(root.left, pendingSum) || hasPathSum(root.right, pendingSum);
+        
+        // boolean foundInLeft = false;
+        // boolean foundInRight = false;
+        
+        // foundInLeft = hasPathSum(root.left, pendingSum);
+        // foundInRight = hasPathSum(root.right, pendingSum);
+        
+        // return foundInLeft || foundInRight;
+    }
 
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree(2); // Create a Binary Tree with 2 as the root.
@@ -142,6 +336,18 @@ public class BinaryTree {
 
 		bt.bfsRecursive(bt.root);
 		bt.bfsIterative(bt.root);
+		
+		System.out.println("====LEFT VIEW====");
+		bt.leftView(bt.root);
+		bt.leftView(bt.root);
+		bt.leftViewIterative(bt.root);
+		
+		System.out.println("====RIGHT VIEW====");
+		bt.rightView(bt.root);
+		bt.rightView(bt.root);
+		
+		System.out.println("====VERTICAL ORDER====");
+		bt.verticalOrder(bt.root);
 	}
 
 }
