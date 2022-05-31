@@ -145,6 +145,26 @@ public class BST {
 		return root;
 
 	}
+	
+//	--------------Check if a tree is BST--------------
+//	https://practice.geeksforgeeks.org/problems/check-for-bst/1/#
+	boolean isBSTUtil(Node root, int min, int max)
+    {
+        if(root == null)
+            return true;
+            
+        if(root.data < min || root.data > max)
+            return false;
+        
+        return (isBSTUtil(root.left, min, root.data - 1) &&
+                isBSTUtil (root.right, root.data + 1, max));
+    }
+    
+    //Function to check whether a Binary Tree is BST or not.
+    boolean isBST(Node root)
+    {
+        return isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
 
 	public static void main(String[] args) {
 		BST bst = new BST(15);

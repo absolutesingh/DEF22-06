@@ -157,166 +157,292 @@ public class BinaryTree {
 		}
 
 	}
-	
+
 //	--------------LEFT and RIGHT View--------------
-	
+
 	int levelToBePrinted = 0;
-	
-	void leftViewUtil(Node root, int level)
-	{
-		if(root == null)
+
+	void leftViewUtil(Node root, int level) {
+		if (root == null)
 			return;
-		
-		if(level == levelToBePrinted)
-		{
+
+		if (level == levelToBePrinted) {
 			System.out.print(root.data + " ");
 			levelToBePrinted++;
 		}
-		
+
 		leftViewUtil(root.left, level + 1);
 		leftViewUtil(root.right, level + 1);
 	}
-	
-	void leftView(Node root)
-	{
+
+	void leftView(Node root) {
 		leftViewUtil(root, 0);
-		
-		//Preparing for the next time
+
+		// Preparing for the next time
 		levelToBePrinted = 0;
 		System.out.println();
 	}
-	
-	//Nothing but BFS where we're printing the first level.
-	void leftViewIterative(Node root)
-	{
-		if(root == null)
+
+	// Nothing but BFS where we're printing the first level.
+	void leftViewIterative(Node root) {
+		if (root == null)
 			return;
-		
+
 		Queue<Node> q = new LinkedList<>();
 		q.add(root);
-		
-		while(!q.isEmpty())
-		{
-			//find the number of nodes in current element
+
+		while (!q.isEmpty()) {
+			// find the number of nodes in current element
 			int n = q.size();
-			
-			for(int i=0;i<n;i++) //process these items
+
+			for (int i = 0; i < n; i++) // process these items
 			{
 				Node temp = q.poll();
-				
-				if(i==0) //if it is the first element of current level
+
+				if (i == 0) // if it is the first element of current level
 				{
 					System.out.print(temp.data + " ");
 				}
-				if(temp.left != null)
-				{
+				if (temp.left != null) {
 					q.add(temp.left);
 				}
-				
-				if(temp.right != null)
-				{
+
+				if (temp.right != null) {
 					q.add(temp.right);
 				}
 			}
 		}
 		System.out.println();
 	}
-	
-	void rightViewUtil(Node root, int level)
-	{
-		if(root == null)
+
+	void rightViewUtil(Node root, int level) {
+		if (root == null)
 			return;
-		
-		if(level == levelToBePrinted)
-		{
+
+		if (level == levelToBePrinted) {
 			System.out.print(root.data + " ");
 			levelToBePrinted++;
 		}
-		
+
 		rightViewUtil(root.right, level + 1);
 		rightViewUtil(root.left, level + 1);
 	}
-	
-	void rightView(Node root)
-	{
+
+	void rightView(Node root) {
 		rightViewUtil(root, 0);
-		
-		//Preparing for the next time
+
+		// Preparing for the next time
 		levelToBePrinted = 0;
 		System.out.println();
 	}
-	
+
 //	--------------VERTICAL ORDER--------------
-	
-	int leftHD = 0; //leftmost horizontal distance
-	int rightHD = 0; //rightmost horizontal distance
-	
-	void findHorizontalDistances(Node root, int hd) //hd -> Horizontal Distance
+
+	int leftHD = 0; // leftmost horizontal distance
+	int rightHD = 0; // rightmost horizontal distance
+
+	void findHorizontalDistances(Node root, int hd) // hd -> Horizontal Distance
 	{
-		if(root == null)
+		if (root == null)
 			return;
-		
-		if(hd < leftHD)
-		{
+
+		if (hd < leftHD) {
 			leftHD = hd;
 		}
-		if(hd > rightHD)
-		{
+		if (hd > rightHD) {
 			rightHD = hd;
 		}
-		
+
 		findHorizontalDistances(root.left, hd - 1);
 		findHorizontalDistances(root.right, hd + 1);
 	}
-	
-	void printVerticalLevel(Node root, int level, int hd)
-	{
-		if(root == null)
+
+	void printVerticalLevel(Node root, int level, int hd) {
+		if (root == null)
 			return;
-		
-		if(level == hd)
-		{
+
+		if (level == hd) {
 			System.out.print(root.data + " ");
 		}
-		
+
 		printVerticalLevel(root.left, level, hd - 1);
 		printVerticalLevel(root.right, level, hd + 1);
 	}
-	
-	void verticalOrder(Node root)
-	{
-		findHorizontalDistances(root, 0); //To find the leftMost and rightMost horizontal distance from the root.
-		
-		for(int i = leftHD; i<= rightHD;i++)
-		{
+
+	void verticalOrder(Node root) {
+		findHorizontalDistances(root, 0); // To find the leftMost and rightMost horizontal distance from the root.
+
+		for (int i = leftHD; i <= rightHD; i++) {
 			printVerticalLevel(root, i, 0);
 			System.out.println();
 		}
 	}
-	
+
 //	--------------ROOT TO LEAF PATH SUM--------------
 //	https://practice.geeksforgeeks.org/problems/root-to-leaf-path-sum/1/
 	boolean hasPathSum(Node root, int S) {
-        if(root == null)
-            return false;
-            
-        int pendingSum = S - root.data;
-        
-        if(pendingSum == 0 && root.left == null && root.right == null)
-        {
-            return true;
-        }
-        
-        return hasPathSum(root.left, pendingSum) || hasPathSum(root.right, pendingSum);
-        
-        // boolean foundInLeft = false;
-        // boolean foundInRight = false;
-        
-        // foundInLeft = hasPathSum(root.left, pendingSum);
-        // foundInRight = hasPathSum(root.right, pendingSum);
-        
-        // return foundInLeft || foundInRight;
-    }
+		if (root == null)
+			return false;
+
+		int pendingSum = S - root.data;
+
+		if (pendingSum == 0 && root.left == null && root.right == null) {
+			return true;
+		}
+
+		return hasPathSum(root.left, pendingSum) || hasPathSum(root.right, pendingSum);
+
+		// boolean foundInLeft = false;
+		// boolean foundInRight = false;
+
+		// foundInLeft = hasPathSum(root.left, pendingSum);
+		// foundInRight = hasPathSum(root.right, pendingSum);
+
+		// return foundInLeft || foundInRight;
+	}
+
+//	--------------All Paths from root with a specified sum--------------
+//	https://practice.geeksforgeeks.org/problems/paths-from-root-with-a-specified-sum/1/#
+	public static ArrayList<ArrayList<Integer>> printPaths(Node root, int sum) {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+		ArrayList<Integer> currentPath = new ArrayList<>();
+
+		printPathsUtil(root, sum, currentPath, result);
+
+		return result;
+	}
+
+	static void printPathsUtil(Node root, int sum, ArrayList<Integer> currentPath,
+			ArrayList<ArrayList<Integer>> result) {
+		if (root == null)
+			return;
+
+		currentPath.add(root.data);
+
+		int pendingSum = sum - root.data;
+		if (pendingSum == 0) {
+			// Create a copy of currentPAth and store
+			// To avoid unrequired updation of the same object as we're working with it
+			result.add(new ArrayList<>(currentPath));
+		}
+
+		printPathsUtil(root.left, pendingSum, currentPath, result);
+
+		printPathsUtil(root.right, pendingSum, currentPath, result);
+
+		// Remove the last element and move back to parent
+		currentPath.remove(currentPath.size() - 1);
+	}
+
+//  --------------Max Path Sum--------------
+//  https://practice.geeksforgeeks.org/problems/maximum-path-sum-from-any-node/1/
+
+	int maxPathSum = Integer.MIN_VALUE;
+
+	// Function to return maximum path sum from any node in a tree.
+	int findMaxSum(Node root) {
+		findMaxSumUtil(root);
+		return maxPathSum;
+	}
+
+	int findMaxSumUtil(Node root) {
+		if (root == null)
+			return 0;
+
+		int leftMaxSum = findMaxSumUtil(root.left);
+		int rightMaxSum = findMaxSumUtil(root.right);
+
+		/*
+		 * Cases: 1. Node only 2. Node + LST 3. Node + RST 4. Node + LST + RST
+		 */
+
+		int max_case123 = Math.max(root.data, root.data + Math.max(leftMaxSum, rightMaxSum));
+
+		int maxAllCases = Math.max(max_case123, root.data + leftMaxSum + rightMaxSum);
+
+		maxPathSum = Math.max(maxPathSum, maxAllCases);
+
+		return max_case123;
+	}
+
+//  --------------DIAMETER--------------
+//  https://practice.geeksforgeeks.org/problems/diameter-of-binary-tree/1/
+	int heightZeroWhenEmpty(Node root) {
+		if (root == null)
+			return 0;
+
+		return 1 + Math.max(heightZeroWhenEmpty(root.left), heightZeroWhenEmpty(root.right));
+	}
+
+	// Function to return the diameter of a Binary Tree.
+	int diameter(Node root) {
+		if (root == null)
+			return 0;
+
+		// get the heights of LST and RST
+		int lstHeight = heightZeroWhenEmpty(root.left);
+		int rstHeight = heightZeroWhenEmpty(root.right);
+
+		// get the left and right Diameter
+		int lstDia = diameter(root.left);
+		int rstDia = diameter(root.right);
+
+		return Math.max(lstHeight + 1 + rstHeight, Math.max(lstDia, rstDia));
+	}
+
+	int maxDia;
+
+	int heightForDiameter(Node root) {
+		if (root == null)
+			return 0;
+
+		int leftHeight = heightForDiameter(root.left);
+		int rightHeight = heightForDiameter(root.right);
+
+		maxDia = Math.max(maxDia, leftHeight + 1 + rightHeight);
+
+		return 1 + Math.max(leftHeight, rightHeight);
+	}
+
+	int diameterOptimized(Node root) {
+		maxDia = Integer.MIN_VALUE;
+		if (root == null)
+			return 0;
+		heightForDiameter(root);
+		return maxDia;
+	}
+
+//  --------------Binary Tree to Doubly Linked List--------------
+//  https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1
+	Node prev = null;
+	Node head = null;
+
+	Node bToDLL(Node root) {
+		bstToDLL(root);
+		return head;
+	}
+
+	void bstToDLL(Node root) {
+		if (root == null)
+			return;
+
+		// Inorder -> LVR
+		bstToDLL(root.left); // L
+
+		// Value
+		if (prev == null) // For leftMost Node -> to be made new head
+		{
+			prev = root;
+			head = root;
+		} else {
+			root.left = prev;
+			prev.right = root;
+			prev = root;
+		}
+
+		bstToDLL(root.right);
+
+	}
 
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree(2); // Create a Binary Tree with 2 as the root.
@@ -336,16 +462,16 @@ public class BinaryTree {
 
 		bt.bfsRecursive(bt.root);
 		bt.bfsIterative(bt.root);
-		
+
 		System.out.println("====LEFT VIEW====");
 		bt.leftView(bt.root);
 		bt.leftView(bt.root);
 		bt.leftViewIterative(bt.root);
-		
+
 		System.out.println("====RIGHT VIEW====");
 		bt.rightView(bt.root);
 		bt.rightView(bt.root);
-		
+
 		System.out.println("====VERTICAL ORDER====");
 		bt.verticalOrder(bt.root);
 	}
