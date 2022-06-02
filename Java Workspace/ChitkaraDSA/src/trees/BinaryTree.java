@@ -444,6 +444,68 @@ public class BinaryTree {
 
 	}
 
+//  --------------Print all nodes at distance k from target--------------
+//  https://practice.geeksforgeeks.org/problems/nodes-at-given-distance-in-binary-tree/1#	
+	public static ArrayList<Integer> KDistanceNodes(Node root, int target, int k) {
+		ArrayList<Integer> result = new ArrayList<>();
+
+		if (root == null || k < 0)
+			return result; // empty list
+
+		KDistanceNodesUtil(root, target, k, result); // this function will do the processing and fill the result list
+
+		Collections.sort(result);
+		return result;
+	}
+
+	static int KDistanceNodesUtil(Node root, int target, int k, ArrayList<Integer> result) {
+		if (root == null)
+			return -1;
+
+		if (root.data == target) {
+			KDistanceNodesInSubtree(root, k, result);
+			return 0;
+		}
+
+		int leftDist = KDistanceNodesUtil(root.left, target, k, result);
+		if (leftDist != -1) // we have found our target node in left subtree
+		{
+			if (leftDist + 1 == k)
+				result.add(root.data); // this means our ancestor is at k distance
+			else {
+				KDistanceNodesInSubtree(root.right, k - 2 - leftDist, result);
+			}
+
+			return leftDist + 1; // we're going to parent
+		}
+
+		int rightDist = KDistanceNodesUtil(root.right, target, k, result);
+		if (rightDist != -1) // we have found our target node in right subtree
+		{
+			if (rightDist + 1 == k)
+				result.add(root.data); // this means our ancestor is at k distance
+			else {
+				KDistanceNodesInSubtree(root.left, k - 2 - rightDist, result);
+			}
+
+			return rightDist + 1; // we're going to parent
+		}
+
+		// element not found in both subtrees
+		return -1;
+	}
+
+	static void KDistanceNodesInSubtree(Node root, int k, ArrayList<Integer> result) {
+		if (root == null)
+			return;
+
+		if (k == 0)
+			result.add(root.data);
+
+		KDistanceNodesInSubtree(root.left, k - 1, result);
+		KDistanceNodesInSubtree(root.right, k - 1, result);
+	}
+
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree(2); // Create a Binary Tree with 2 as the root.
 		bt.root.left = new Node(3);
