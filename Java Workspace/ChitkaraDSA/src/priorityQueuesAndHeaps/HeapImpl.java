@@ -25,39 +25,36 @@ class MyHeap {
 	boolean hasParent(int i) {
 		return getParentIndex(i) >= 0;
 	}
-	
+
 	boolean hasLeftChild(int i) {
-		return getLeftChildIndex(i) < size; //That index must exist in our array
+		return getLeftChildIndex(i) < size; // That index must exist in our array
 	}
-	
+
 	boolean hasRightChild(int i) {
-		return getRightChildIndex(i) < size; //That index must exist in our array
+		return getRightChildIndex(i) < size; // That index must exist in our array
 	}
-	
+
 //	FUNCTIONS TO GET THE VALUE OF THE PARENT/CHILDREN
-	int getParentValue(int i)
-	{
+	int getParentValue(int i) {
 		return arr[getParentIndex(i)];
 	}
-	
-	int getLeftChildValue(int i)
-	{
+
+	int getLeftChildValue(int i) {
 		return arr[getLeftChildIndex(i)];
 	}
-	
-	int getRightChildValue(int i)
-	{
+
+	int getRightChildValue(int i) {
 		return arr[getRightChildIndex(i)];
 	}
 
 //	------------------------------------------------------------
-	
+
 	int peek() {
 		if (this.isEmpty()) {
 			System.out.println("Nothing to peek, PQ is empty!");
 			return -1;
 		}
-		return arr[0]; //Highest priority element is at root
+		return arr[0]; // Highest priority element is at root
 	}
 
 	boolean isEmpty() {
@@ -91,12 +88,52 @@ class MyHeap {
 			index = getParentIndex(index);
 		}
 	}
-	
-	void swap(int index1, int index2)
-	{
+
+	void swap(int index1, int index2) {
 		int temp = arr[index1];
 		arr[index1] = arr[index2];
 		arr[index2] = temp;
+	}
+
+//	Deletion from Heap
+	int poll() {
+		if (this.isEmpty()) {
+			System.out.println("Nothing to poll, PQ is empty!");
+			return -1;
+		}
+
+		int elementToReturn = arr[0];
+
+		arr[0] = arr[size - 1];// pick the last element and keep in front
+		size--; // removed one element
+
+		heapifyDown();
+
+		return elementToReturn;
+	}
+
+	void heapifyDown() {
+		int index = 0;
+
+		while (hasLeftChild(index)) {
+//			left child definitely exists, let's consider it to be the larger one
+			int largerChildIndex = getLeftChildIndex(index);
+
+//			If right child exists and is greater than left child then update largerChildIndex
+			if (hasRightChild(index) && getRightChildValue(index) > getLeftChildValue(index)) {
+				largerChildIndex = getRightChildIndex(index);
+			}
+
+			// At this point -> largerChildIndex contains the index of child bigger among
+			// left and right child.
+
+			if (arr[index] > arr[largerChildIndex]) {
+				break; // or return - we don't have to do anything now -> heap is created.
+			} else {
+				swap(index, largerChildIndex);
+				index = largerChildIndex; // Now our element is at the place of its larger child.
+			}
+		}
 	}
 }
 
@@ -115,6 +152,20 @@ public class HeapImpl {
 		System.out.println(heap.isEmpty());
 		System.out.println(heap.size());
 		System.out.println(heap.peek());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
+		System.out.println(heap.poll());
+		System.out.println(heap.size());
 	}
 
 }
